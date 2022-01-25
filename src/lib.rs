@@ -62,8 +62,13 @@ mod imp;
 mod imp;
 
 // aarch64
-#[cfg(all(target_arch = "aarch64", any(target_family = "unix", target_os = "redox")))]
+#[cfg(all(target_arch = "aarch64", any(target_family = "unix", target_os = "redox"), not(any(target_os = "macos", target_os = "ios"))))]
 #[path = "impl-aarch64-elf.rs"]
+mod imp;
+
+// aarch64 apple
+#[cfg(all(target_arch = "aarch64", any(target_os = "macos", target_os = "ios")))]
+#[path = "impl-aarch64-apple.rs"]
 mod imp;
 
 // arm+unix = cdecl
